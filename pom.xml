@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>wniemiec.api</groupId>
-    <artifactId>nshop</artifactId>
+    <artifactId>nshop-backend</artifactId>
     <version>1.0.0</version>
     <name>nshop-backend</name>
     <description>Shopping system</description>
@@ -45,8 +45,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.23</version>
         </dependency>
 
         <dependency>
