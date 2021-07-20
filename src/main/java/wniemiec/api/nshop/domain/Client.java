@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import wniemiec.api.nshop.domain.enums.ClientType;
+import wniemiec.api.nshop.domain.enums.Profile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client implements Serializable {
@@ -22,6 +24,9 @@ public class Client implements Serializable {
     @Column(unique=true)
     private String email;
 
+    @JsonIgnore
+    private String password;
+
     private String documentId;
     private Integer type;
 
@@ -32,6 +37,10 @@ public class Client implements Serializable {
     @CollectionTable(name="phones")
     private Set<String> phones;
 
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable(name="profiles")
+    private Set<Integer> profiles = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy="client")
     private List<ClientOrder> clientOrders;
@@ -40,14 +49,16 @@ public class Client implements Serializable {
         addresses = new ArrayList<>();
         phones = new HashSet<>();
         clientOrders = new ArrayList<>();
+        addProfile(Profile.CLIENT);
     }
 
-    public Client(Integer id, String name, String email, String documentId, ClientType type) {
+    public Client(Integer id, String name, String email, String documentId, ClientType type, String password) {
         this();
         this.id = id;
         this.name = name;
         this.email = email;
         this.documentId = documentId;
+        this.password = password;
 
         if (type != null)
             this.type = type.getId();
@@ -94,6 +105,14 @@ public class Client implements Serializable {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getDocumentId() {
         return documentId;
     }
@@ -120,5 +139,16 @@ public class Client implements Serializable {
 
     public List<ClientOrder> getClientOrders() {
         return clientOrders;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles
+            .stream()
+            .map(profile -> Profile.toEnum(profile))
+            .collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profile profile) {
+        this.profiles.add(profile.getId());
     }
 }

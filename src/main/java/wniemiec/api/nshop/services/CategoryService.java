@@ -5,13 +5,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import wniemiec.api.nshop.domain.Category;
-import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.dto.CategoryDTO;
-import wniemiec.api.nshop.exceptions.DataIntegrityException;
-import wniemiec.api.nshop.exceptions.ObjectNotFoundException;
+import wniemiec.api.nshop.services.exceptions.DataIntegrityException;
+import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.CategoryRepository;
 
 import java.util.ArrayList;

@@ -1,23 +1,23 @@
 package wniemiec.api.nshop.domain.enums;
 
-public enum ClientType {
+public enum Profile {
 
-    NATURAL_PERSON(1, "Natural Person"),
-    LEGAL_PERSON(2, "Legal Person");
+    ADMIN(1, "ROLE_ADMIN"),
+    CLIENT(2, "ROLE_CLIENT");
 
     private int id;
     private String label;
 
-    private ClientType(int id, String label) {
+    private Profile(int id, String label) {
         this.id = id;
         this.label = label;
     }
 
-    public static ClientType toEnum(Integer id) {
+    public static Profile toEnum(Integer id) {
         if (id == null)
             return null;
 
-        for (ClientType type : ClientType.values()) {
+        for (Profile type : Profile.values()) {
             if (id.equals(type.getId()))
                 return type;
         }

@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 public class ClientOrder implements Serializable {
@@ -44,6 +43,25 @@ public class ClientOrder implements Serializable {
         this.date = date;
         this.client = client;
         this.deliveryAddress = deliveryAddress;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ClientOrder{");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        sb.append("id=").append(getId());
+        sb.append(", date=").append(sdf.format(getDate()));
+        sb.append(", client=").append(client.getName());
+        sb.append(", status=").append(getPayment().getStatus().getLabel());
+        sb.append(", details=[\n");
+        getProducts().forEach(product -> sb.append(product.toString()).append('\n'));
+        sb.append(']');
+        sb.append(", Total=").append(nf.format(getTotal()));
+        sb.append('}');
+
+        return sb.toString();
     }
 
     @Override

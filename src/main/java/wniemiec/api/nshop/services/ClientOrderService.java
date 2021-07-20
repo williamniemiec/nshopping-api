@@ -1,10 +1,16 @@
 package wniemiec.api.nshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import wniemiec.api.nshop.domain.*;
 import wniemiec.api.nshop.domain.enums.PaymentStatus;
-import wniemiec.api.nshop.exceptions.ObjectNotFoundException;
+import wniemiec.api.nshop.dto.CategoryDTO;
+import wniemiec.api.nshop.security.UserSpringSecurity;
+import wniemiec.api.nshop.services.exceptions.AuthorizationException;
+import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.ClientOrderRepository;
 
 import java.util.Date;
@@ -28,6 +34,12 @@ public class ClientOrderService {
     @Autowired
     private ClientOrderItemService clientOrderItemService;
 
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private EmailService emailService;
+
     public ClientOrder searchById(Integer id) {
         Optional<ClientOrder> order = repository.findById(id);
 
@@ -38,6 +50,7 @@ public class ClientOrderService {
 
     public ClientOrder insert(ClientOrder order) {
         order.setId(null);
+        order.setClient(clientService.findById(order.getClient().getId()));
         order.setDate(new Date());
         order.getPayment().setStatus(PaymentStatus.PENDING);
         order.getPayment().setClientOrder(order);
@@ -52,14 +65,30 @@ public class ClientOrderService {
 
         for (ClientOrderItem orderItem : storedOrder.getProducts()) {
             orderItem.setDiscount(0.0);
-            Product p2 = orderItem.getProduct();
             Product p = productService.findOne(orderItem.getProduct().getId());
+            orderItem.setProduct(p);
             orderItem.setPrice(p.getPrice());
             orderItem.setOrder(storedOrder);
         }
 
         clientOrderItemService.save(order.getProducts());
 
+        //System.out.println(storedOrder);
+        emailService.sendOrderConfirmationHtmlEmail(storedOrder);
+
         return storedOrder;
+    }
+
+    public Page<ClientOrder> findPage(Integer page, Integer linesPerPage,
+                                      String orderBy, String direction) {
+        UserSpringSecurity user = UserService.authenticatedUser();
+
+        if (user == null)
+            throw new AuthorizationException("Access denied");
+
+        Client client = clientService.findById(user.getId());
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+
+        return repository.findByClient(client, pageRequest);
     }
 }

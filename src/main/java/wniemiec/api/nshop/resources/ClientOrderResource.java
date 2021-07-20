@@ -1,10 +1,12 @@
 package wniemiec.api.nshop.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import wniemiec.api.nshop.domain.ClientOrder;
+import wniemiec.api.nshop.dto.ClientDTO;
 import wniemiec.api.nshop.services.ClientOrderService;
 
 import javax.validation.Valid;
@@ -30,5 +32,17 @@ public class ClientOrderResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newOrder.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(method=RequestMethod.GET)
+    public ResponseEntity<Page<ClientOrder>> findPage(
+            @RequestParam(value="page", defaultValue="0") Integer page,
+            @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+            @RequestParam(value="orderBy", defaultValue="date") String orderBy,
+            @RequestParam(value="direction", defaultValue="DESC") String direction
+    ) {
+        Page<ClientOrder> orders = service.findPage(page, linesPerPage, orderBy, direction);
+
+        return ResponseEntity.ok().body(orders);
     }
 }

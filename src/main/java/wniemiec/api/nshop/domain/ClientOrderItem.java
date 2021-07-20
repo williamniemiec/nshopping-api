@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +43,20 @@ public class ClientOrderItem {
         ClientOrderItem that = (ClientOrderItem) o;
 
         return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ClientOrderItem{");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        sb.append("name=").append(getProduct().getName());
+        sb.append(", amount=").append(amount);
+        sb.append(", price=").append(nf.format(price));
+        sb.append(", total=").append(nf.format(getTotal()));
+        sb.append('}');
+
+        return sb.toString();
     }
 
     @Override

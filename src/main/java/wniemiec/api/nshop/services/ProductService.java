@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import wniemiec.api.nshop.domain.Category;
 import wniemiec.api.nshop.domain.Product;
 import wniemiec.api.nshop.dto.ProductDTO;
-import wniemiec.api.nshop.exceptions.ObjectNotFoundException;
+import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.CategoryRepository;
 import wniemiec.api.nshop.repositories.ProductRepository;
 

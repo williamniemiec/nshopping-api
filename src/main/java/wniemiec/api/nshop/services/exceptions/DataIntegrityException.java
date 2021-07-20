@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.exceptions;
+package wniemiec.api.nshop.services.exceptions;
 
 public class DataIntegrityException extends RuntimeException {
 

@@ -21,6 +21,9 @@ public class ClientNewDTO implements Serializable {
     private String email;
 
     @NotEmpty(message="Required field")
+    private String password;
+
+    @NotEmpty(message="Required field")
     private String documentId;
 
     private Integer type;
@@ -147,5 +150,13 @@ public class ClientNewDTO implements Serializable {
 
     public void setPhone3(String phone3) {
         this.phone3 = phone3;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
