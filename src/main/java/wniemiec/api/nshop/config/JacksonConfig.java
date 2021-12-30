@@ -7,18 +7,31 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import wniemiec.api.nshop.domain.BoletoPayment;
 import wniemiec.api.nshop.domain.CardPayment;
 
+
+/**
+ * Responsible for configuring deserializers, avoiding "Can not construct 
+ * instance of InterfaceClass" error.
+ */
 @Configuration
 public class JacksonConfig {
-    // https://stackoverflow.com/questions/41452598/overcome-can-not-construct-instance-ofinterfaceclass-without-hinting-the-pare
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Bean
     public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder() {
+        return new Jackson2ObjectMapperBuilder() {
+
+            @Override
             public void configure(ObjectMapper objectMapper) {
-                objectMapper.registerSubtypes(CardPayment.class);
-                objectMapper.registerSubtypes(BoletoPayment.class);
+                registerSubtypes(objectMapper);
                 super.configure(objectMapper);
             }
+
+            private void registerSubtypes(ObjectMapper objectMapper) {
+                objectMapper.registerSubtypes(CardPayment.class);
+                objectMapper.registerSubtypes(BoletoPayment.class);
+            }
         };
-        return builder;
     }
 }

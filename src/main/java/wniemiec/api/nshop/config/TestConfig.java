@@ -7,16 +7,26 @@ import org.springframework.context.annotation.Profile;
 import wniemiec.api.nshop.services.DatabaseService;
 import wniemiec.api.nshop.services.EmailService;
 import wniemiec.api.nshop.services.MockEmailService;
-
 import java.text.ParseException;
 
+
+/**
+ * Responsible for configuring test environment.
+ */
 @Configuration
 @Profile("test")
 public class TestConfig {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private DatabaseService databaseService;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Bean
     public boolean instantiateDatabase() throws ParseException {
         databaseService.fillDatabase();
