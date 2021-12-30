@@ -1,10 +1,11 @@
 package wniemiec.api.nshop.services.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import wniemiec.api.nshop.controllers.exception.FieldMessage;
 import wniemiec.api.nshop.domain.enums.ClientType;
 import wniemiec.api.nshop.dto.ClientNewDTO;
 import wniemiec.api.nshop.repositories.ClientRepository;
-import wniemiec.api.nshop.resources.exception.FieldMessage;
 import wniemiec.api.nshop.services.validation.util.BR;
 
 import javax.validation.ConstraintValidator;

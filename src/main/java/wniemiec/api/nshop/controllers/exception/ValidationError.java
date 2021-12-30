@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.resources.exception;
+package wniemiec.api.nshop.controllers.exception;
 
 import java.util.ArrayList;
 import java.util.List;

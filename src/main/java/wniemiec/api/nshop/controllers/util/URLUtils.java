@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.resources.util;
+package wniemiec.api.nshop.controllers.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

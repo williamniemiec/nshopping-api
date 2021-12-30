@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.resources;
+package wniemiec.api.nshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

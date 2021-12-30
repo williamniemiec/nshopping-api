@@ -2,12 +2,13 @@ package wniemiec.api.nshop.services.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
+
+import wniemiec.api.nshop.controllers.exception.FieldMessage;
 import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.domain.enums.ClientType;
 import wniemiec.api.nshop.dto.ClientDTO;
 import wniemiec.api.nshop.dto.ClientNewDTO;
 import wniemiec.api.nshop.repositories.ClientRepository;
-import wniemiec.api.nshop.resources.exception.FieldMessage;
 import wniemiec.api.nshop.services.validation.util.BR;
 
 import javax.servlet.http.HttpServletRequest;

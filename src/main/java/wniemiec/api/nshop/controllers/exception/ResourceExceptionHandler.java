@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.resources.exception;
+package wniemiec.api.nshop.controllers.exception;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;

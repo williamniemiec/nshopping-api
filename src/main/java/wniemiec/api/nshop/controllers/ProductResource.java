@@ -1,13 +1,14 @@
-package wniemiec.api.nshop.resources;
+package wniemiec.api.nshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import wniemiec.api.nshop.controllers.util.URLUtils;
 import wniemiec.api.nshop.domain.Product;
 import wniemiec.api.nshop.dto.CategoryDTO;
 import wniemiec.api.nshop.dto.ProductDTO;
-import wniemiec.api.nshop.resources.util.URLUtils;
 import wniemiec.api.nshop.services.ProductService;
 
 import java.util.List;
