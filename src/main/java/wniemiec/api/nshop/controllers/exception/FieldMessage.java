@@ -2,13 +2,23 @@ package wniemiec.api.nshop.controllers.exception;
 
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing an error along with its message.
+ */
 public class FieldMessage implements Serializable {
 
-    private static long serialVersionUID = 1L;
-
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
     private String fieldName;
     private String message;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public FieldMessage() {
 
     }
@@ -18,6 +28,10 @@ public class FieldMessage implements Serializable {
         this.message = message;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public String getFieldName() {
         return fieldName;
     }

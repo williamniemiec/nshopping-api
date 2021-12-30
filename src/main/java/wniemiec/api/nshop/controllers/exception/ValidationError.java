@@ -3,21 +3,40 @@ package wniemiec.api.nshop.controllers.exception;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Responsible for representing validation errors.
+ */
 public class ValidationError extends StandardError {
 
-    private static long serialVersionUID = 1L;
-
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
     private List<FieldMessage> errors = new ArrayList<>();
 
-    public ValidationError(long timestamp, Integer status, String error, String message, String path) {
+
+    //-------------------------------------------------------------------------
+    //		Constructor
+    //-------------------------------------------------------------------------
+    public ValidationError(long timestamp, Integer status, String error, 
+                           String message, String path) {
         super(timestamp, status, error, message, path);
     }
 
-    public List<FieldMessage> getErrors() {
-        return errors;
-    }
 
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public void addError(String fieldName, String message) {
         errors.add(new FieldMessage(fieldName, message));
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Getters
+    //-------------------------------------------------------------------------
+    public List<FieldMessage> getErrors() {
+        return errors;
     }
 }

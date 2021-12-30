@@ -13,12 +13,18 @@ import wniemiec.api.nshop.services.exceptions.AuthorizationException;
 import wniemiec.api.nshop.services.exceptions.DataIntegrityException;
 import wniemiec.api.nshop.services.exceptions.FileException;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
-
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
-public class ResourceExceptionHandler {
 
+/**
+ * Responsible for handling controllers exceptions.
+ */
+@ControllerAdvice
+public class ControllerExceptionHandler {
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e,
                                                         HttpServletRequest request) {

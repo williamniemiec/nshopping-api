@@ -2,17 +2,29 @@ package wniemiec.api.nshop.controllers.exception;
 
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing standard errors (errors without a specific
+ * error class).
+ */
 public class StandardError implements Serializable {
 
-    private static long serialVersionUID = 1L;
-
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
     private long timestamp;
     private Integer status;
     private String error;
     private String message;
     private String path;
 
-    public StandardError(long timestamp, Integer status, String error, String message, String path) {
+
+    //-------------------------------------------------------------------------
+    //		Constructor
+    //-------------------------------------------------------------------------
+    public StandardError(long timestamp, Integer status, String error, 
+                         String message, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
@@ -20,6 +32,10 @@ public class StandardError implements Serializable {
         this.path = path;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public long getTimestamp() {
         return timestamp;
     }
