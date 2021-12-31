@@ -125,7 +125,6 @@ public class ClientService {
         City city = new City(client.getCityId(), null, null);
 
         Address address = new Address(
-            null,
             client.getStreetName(),
             client.getNumber(),
             client.getApt(),

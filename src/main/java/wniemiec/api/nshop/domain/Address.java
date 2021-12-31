@@ -20,7 +20,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String streetName;
     private String number;
     private String apt;
@@ -43,9 +43,9 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(Integer id, String streetName, String number, String apt,
-                   String district, String zip, Client client, City city) {
-        this.id = id;
+    public Address(String streetName, String number, String apt, String district, 
+                   String zip, Client client, City city) {
+        this.id = null;
         this.streetName = streetName;
         this.number = number;
         this.apt = apt;

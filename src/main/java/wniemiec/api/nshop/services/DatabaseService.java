@@ -216,9 +216,9 @@ public class DatabaseService {
         cli2.addProfile(Profile.ADMIN);
         cli2.getPhones().addAll(Arrays.asList("27363323", "93838393"));
 
-        Address e1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
-        Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
-        Address e3 = new Address(null, "Avenida Floiano", "105", null, "Centro", "38777012", cli1, c2);
+        Address e1 = new Address("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+        Address e2 = new Address("Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+        Address e3 = new Address("Avenida Floiano", "105", null, "Centro", "38777012", cli1, c2);
 
         cli1.getAddresses().addAll(Arrays.asList(e1, e2));
         cli2.getAddresses().addAll(Arrays.asList(e3));
