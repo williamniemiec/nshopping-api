@@ -30,9 +30,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Responsible for providing client services.
+ */
 @Service
 public class ClientService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private ClientRepository repository;
 
@@ -54,6 +61,10 @@ public class ClientService {
     @Value("${img.profile.size}")
     private Integer size;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public Client searchById(Integer id) {
         UserSpringSecurity user = UserService.authenticatedUser();
         if (user == null || (!user.hasRole(Profile.ADMIN) && !id.equals(user.getId())))

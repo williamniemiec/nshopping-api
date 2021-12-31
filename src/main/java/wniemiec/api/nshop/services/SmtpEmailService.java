@@ -6,30 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-
 import javax.mail.internet.MimeMessage;
 
+
+/**
+ * Responsible for providing STMP email services.
+ */
 public class SmtpEmailService extends AbstractEmailService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private MailSender mailSender;
 
     @Autowired
     private JavaMailSender javaMailSender;
 
-    private static final Logger LOG = LoggerFactory.getLogger(MockEmailService.class);
+    private static final Logger logger;
 
+
+    //-------------------------------------------------------------------------
+    //		Initialization blocks
+    //-------------------------------------------------------------------------
+    static {
+        logger = LoggerFactory.getLogger(MockEmailService.class);
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public void sendEmail(SimpleMailMessage message) {
-        LOG.info("Sending email...");
+        logger.info("Sending email...");
         mailSender.send(message);
-        LOG.info("Email has sent");
+        logger.info("Email has sent");
     }
 
     @Override
     public void sendHtmlEmail(MimeMessage message) {
-        LOG.info("Sending email...");
+        logger.info("Sending email...");
         javaMailSender.send(message);
-        LOG.info("Email has sent");
+        logger.info("Email has sent");
     }
 }

@@ -9,14 +9,26 @@ import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.repositories.ClientRepository;
 import wniemiec.api.nshop.security.UserSpringSecurity;
 
+
+/**
+ * Responsible for providing user services.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private ClientRepository repository;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) 
+    throws UsernameNotFoundException {
         Client client = repository.findByEmail(email);
 
         if (client == null) {

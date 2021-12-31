@@ -11,19 +11,29 @@ import wniemiec.api.nshop.dto.ProductDTO;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.CategoryRepository;
 import wniemiec.api.nshop.repositories.ProductRepository;
-
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Responsible for providing product services.
+ */
 @Service
 public class ProductService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private ProductRepository repository;
 
     @Autowired
     private CategoryRepository categoryRepository;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public Product searchById(Integer id) {
         Optional<Product> order = repository.findById(id);
 

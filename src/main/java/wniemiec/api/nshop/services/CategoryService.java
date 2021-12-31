@@ -11,29 +11,52 @@ import wniemiec.api.nshop.dto.CategoryDTO;
 import wniemiec.api.nshop.services.exceptions.DataIntegrityException;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.CategoryRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Responsible for providing category services.
+ */
 @Service
 public class CategoryService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
-    private CategoryRepository repository;
+    private CategoryRepository categoryRepository;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public Category findById(Integer id) {
-        Optional<Category> cat = repository.findById(id);
+        Optional<Category> category = categoryRepository.findById(id);
 
-        return cat.orElseThrow(() -> new ObjectNotFoundException(
-                "Object not found! Id: " + id + ", Type: " + Category.class.getName()
-        ));
+        return category.orElseThrow(() -> generateObjectNotFoundException(id));
+    }
+
+    private ObjectNotFoundException generateObjectNotFoundException(Integer id) {
+        return new ObjectNotFoundException(
+            "Object not found! Id: " + id + ", Type: " + Category.class.getName()
+        );
     }
 
     public Category insert(Category category) {
-        category.setId(null);   // Forces the insertion of a new record,
-                                // preventing it from being an update
-        return repository.save(category);
+        ensureCategoryWillBeCreated(category);
+
+        return categoryRepository.save(category);
+    }
+
+    /**
+     * Forces the insertion of a new record, preventing it from being an update.
+     * 
+     * @param       category Category that will be created
+     */
+    private void ensureCategoryWillBeCreated(Category category) {
+        category.setId(null);
     }
 
     public Category insert(CategoryDTO category) {
@@ -42,34 +65,36 @@ public class CategoryService {
 
     public void update(Category category) {
         if (category.getId() == null) {
-            throw new ObjectNotFoundException(
-                    "Object not found! Id: " + category.getId() + ", Type: " + Category.class.getName()
-            );
+            throw generateObjectNotFoundException(category.getId());
         }
 
-        Category currentCategory = repository.findById(category.getId()).get();
+        Category currentCategory = findById(category.getId());
+        
         category.setProducts(currentCategory.getProducts());
-
-        repository.save(category);
+        categoryRepository.save(category);
     }
 
     public void update(CategoryDTO category) {
-        update(new Category(category.getId(), category.getName()));
+        update(new Category(
+            category.getId(), 
+            category.getName()
+        ));
     }
 
     public void delete(Integer id) {
         try {
-            repository.deleteById(id);
+            categoryRepository.deleteById(id);
         }
         catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("It is not possible to delete a category with products");
+            throw new DataIntegrityException("It is not possible to delete a " +
+                                             "category with products");
         }
     }
 
     public List<CategoryDTO> findAll() {
         List<CategoryDTO> categories = new ArrayList<>();
 
-        for (Category category : repository.findAll()) {
+        for (Category category : categoryRepository.findAll()) {
             categories.add(new CategoryDTO(category));
         }
 
@@ -78,8 +103,13 @@ public class CategoryService {
 
     public Page<CategoryDTO> findPage(Integer page, Integer linesPerPage,
                                       String orderBy, String direction) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<Category> pages = repository.findAll(pageRequest);
+        PageRequest pageRequest = PageRequest.of(
+            page, 
+            linesPerPage, 
+            Sort.Direction.valueOf(direction), 
+            orderBy
+        );
+        Page<Category> pages = categoryRepository.findAll(pageRequest);
 
         return pages.map(CategoryDTO::new);
     }

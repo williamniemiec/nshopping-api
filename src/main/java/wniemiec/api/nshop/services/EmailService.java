@@ -3,9 +3,12 @@ package wniemiec.api.nshop.services;
 import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.domain.ClientOrder;
 import org.springframework.mail.SimpleMailMessage;
-
 import javax.mail.internet.MimeMessage;
 
+
+/**
+ * Responsible for defining email services.
+ */
 public interface EmailService {
 
     void sendOrderConfirmationEmail(ClientOrder order);

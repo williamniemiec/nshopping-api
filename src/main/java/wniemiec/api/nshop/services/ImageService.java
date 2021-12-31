@@ -14,9 +14,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+/**
+ * Responsible for providing image services.
+ */
 @Service
 public class ImageService {
 
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
         String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
         if (!"png".equals(ext) && !"jpg".equals(ext)) {

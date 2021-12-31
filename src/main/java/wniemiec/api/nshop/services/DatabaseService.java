@@ -13,9 +13,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
+
+/**
+ * Responsible for providing database services.
+ */
 @Service
 public class DatabaseService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -46,6 +53,10 @@ public class DatabaseService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public void fillDatabase() throws ParseException {
         Category cat1 = new Category(null, "Informática");
         Category cat2 = new Category(null, "Escritório");

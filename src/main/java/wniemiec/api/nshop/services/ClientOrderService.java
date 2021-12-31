@@ -6,20 +6,23 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import wniemiec.api.nshop.domain.*;
-import wniemiec.api.nshop.domain.enums.PaymentStatus;
-import wniemiec.api.nshop.dto.CategoryDTO;
 import wniemiec.api.nshop.dto.ClientOrderDTO;
 import wniemiec.api.nshop.security.UserSpringSecurity;
 import wniemiec.api.nshop.services.exceptions.AuthorizationException;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.ClientOrderRepository;
-
-import java.util.Date;
 import java.util.Optional;
 
+
+/**
+ * Responsible for providing client order services.
+ */
 @Service
 public class ClientOrderService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Autowired
     private ClientOrderRepository repository;
 
@@ -41,6 +44,10 @@ public class ClientOrderService {
     @Autowired
     private EmailService emailService;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public ClientOrder searchById(Integer id) {
         Optional<ClientOrder> order = repository.findById(id);
 

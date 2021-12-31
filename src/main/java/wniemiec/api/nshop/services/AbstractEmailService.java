@@ -9,13 +9,19 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.domain.ClientOrder;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
+
+/**
+ * Responsible for providing email services.
+ */
 public abstract class AbstractEmailService implements EmailService {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @Value("${default.sender}")
     private String supportMail;
 
@@ -25,13 +31,18 @@ public abstract class AbstractEmailService implements EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public void sendOrderConfirmationEmail(ClientOrder order) {
-        SimpleMailMessage message = generateSimpleMailMessageFromClientOrder(order);
+        SimpleMailMessage message = generateMailMessageFromClientOrder(order);
+        
         sendEmail(message);
     }
 
-    protected SimpleMailMessage generateSimpleMailMessageFromClientOrder(ClientOrder order) {
+    protected SimpleMailMessage generateMailMessageFromClientOrder(ClientOrder order) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(supportMail);
@@ -47,6 +58,7 @@ public abstract class AbstractEmailService implements EmailService {
     public void sendOrderConfirmationHtmlEmail(ClientOrder order) {
         try {
             MimeMessage message = generateMimeMessageFromClientOrder(order);
+
             sendHtmlEmail(message);
         }
         catch (MessagingException e) {
@@ -54,7 +66,8 @@ public abstract class AbstractEmailService implements EmailService {
         }
     }
 
-    protected MimeMessage generateMimeMessageFromClientOrder(ClientOrder order) throws MessagingException {
+    protected MimeMessage generateMimeMessageFromClientOrder(ClientOrder order) 
+    throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
@@ -78,6 +91,7 @@ public abstract class AbstractEmailService implements EmailService {
     @Override
     public void sendNewPasswordEmail(Client client, String newPassword) {
         SimpleMailMessage message = prepareNewPasswordEmail(client, newPassword);
+
         sendEmail(message);
     }
 
