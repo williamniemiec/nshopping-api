@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import wniemiec.api.nshop.domain.Client;
 import wniemiec.api.nshop.domain.ClientOrder;
 
+
+/**
+ * Responsible for storing and retrieving client orders.
+ */
 @Repository
 public interface ClientOrderRepository extends JpaRepository<ClientOrder, Integer> {
 
