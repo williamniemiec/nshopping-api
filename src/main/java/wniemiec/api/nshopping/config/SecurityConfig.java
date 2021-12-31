@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.config;
+package wniemiec.api.nshopping.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,9 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import wniemiec.api.nshop.security.JWTAuthenticationFilter;
-import wniemiec.api.nshop.security.JWTAuthorizationFilter;
-import wniemiec.api.nshop.security.JWTUtil;
+import wniemiec.api.nshopping.security.JWTAuthenticationFilter;
+import wniemiec.api.nshopping.security.JWTAuthorizationFilter;
+import wniemiec.api.nshopping.security.JWTUtil;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,6 +82,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //-------------------------------------------------------------------------
     //		Methods
     //-------------------------------------------------------------------------
+    @Override  
+    public void configure(WebSecurity web) throws Exception {  
+        web.ignoring().antMatchers(
+            "/v2/api-docs", 
+            "/configuration/ui", 
+            "/swagger-resources/**", 
+            "/configuration/**", 
+            "/swagger-ui.html", 
+            "/webjars/**"
+        );  
+    } 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         configureHttpCors(http);

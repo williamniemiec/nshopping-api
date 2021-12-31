@@ -1,11 +1,11 @@
-package wniemiec.api.nshop.config;
+package wniemiec.api.nshopping.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import wniemiec.api.nshop.domain.BoletoPayment;
-import wniemiec.api.nshop.domain.CardPayment;
+import wniemiec.api.nshopping.domain.BoletoPayment;
+import wniemiec.api.nshopping.domain.CardPayment;
 
 
 /**

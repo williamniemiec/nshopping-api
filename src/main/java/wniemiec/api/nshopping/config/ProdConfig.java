@@ -1,10 +1,10 @@
-package wniemiec.api.nshop.config;
+package wniemiec.api.nshopping.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import wniemiec.api.nshop.services.EmailService;
-import wniemiec.api.nshop.services.SmtpEmailService;
+import wniemiec.api.nshopping.services.EmailService;
+import wniemiec.api.nshopping.services.SmtpEmailService;
 import java.text.ParseException;
 
 
