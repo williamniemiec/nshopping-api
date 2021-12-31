@@ -38,19 +38,26 @@ public class ProductService {
         Optional<Product> order = repository.findById(id);
 
         return order.orElseThrow(() -> new ObjectNotFoundException(
-                "Object not found! Id: " + id + ", Type: " + Product.class.getName()
+            "Object not found! Id: " 
+            + id + ", Type: " 
+            + Product.class.getName()
         ));
     }
 
     public Page<ProductDTO> search(String name, List<Integer> categoryIds,
                                    Integer page, Integer linesPerPage,
                                    String orderBy, String direction) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        PageRequest pageRequest = PageRequest.of(
+            page, 
+            linesPerPage, 
+            Sort.Direction.valueOf(direction), 
+            orderBy
+        );
         List<Category> categories = categoryRepository.findAllById(categoryIds);
 
         return repository
             .search(name, categories, pageRequest)
-            .map(product -> new ProductDTO(product));
+            .map(ProductDTO::new);
     }
 
     public Product findOne(Integer id) {

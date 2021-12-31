@@ -24,7 +24,7 @@ public class S3Service {
     //-------------------------------------------------------------------------
     //		Attributes
     //-------------------------------------------------------------------------
-    private static final Logger LOG = LoggerFactory.getLogger(S3Service.class);
+    private static final Logger LOG;
 
     @Autowired
     private AmazonS3 s3client;
@@ -34,34 +34,52 @@ public class S3Service {
 
 
     //-------------------------------------------------------------------------
+    //		Initialization blocks
+    //-------------------------------------------------------------------------
+    static {
+        LOG = LoggerFactory.getLogger(S3Service.class);
+    }
+
+
+    //-------------------------------------------------------------------------
     //		Methods
     //-------------------------------------------------------------------------
     public URI uploadFile(MultipartFile multipartFile) {
-        String filename = multipartFile.getOriginalFilename();
-        InputStream inputStream = null;
-
         try {
-            inputStream = multipartFile.getInputStream();
-            String contentType = multipartFile.getContentType();
-            return uploadFile(inputStream, filename, contentType);
+            return uploadFile(
+                multipartFile.getInputStream(), 
+                multipartFile.getOriginalFilename(), 
+                multipartFile.getContentType()
+            );
         }
         catch (IOException e) {
             throw new FileException("IO Error: " + e.getMessage());
         }
     }
 
-    public URI uploadFile(InputStream inputStream, String filename, String contentType) {
-        ObjectMetadata meta = new ObjectMetadata();
-        meta.setContentType(contentType);
+    public URI uploadFile(InputStream inputStream, String filename, 
+                          String contentType) {
+        ObjectMetadata metadata = generateMetadata(contentType);
 
         try {
             LOG.info("Uploading...");
-            s3client.putObject(bucketName, filename, inputStream, meta);
+            s3client.putObject(bucketName, filename, inputStream, metadata);
             LOG.info("Upload has finished");
-            return s3client.getUrl(bucketName, filename).toURI();
+            
+            return s3client
+                .getUrl(bucketName, filename)
+                .toURI();
         }
         catch (URISyntaxException e) {
             throw new FileException("URL to URI");
         }
+    }
+
+    private ObjectMetadata generateMetadata(String contentType) {
+        ObjectMetadata metadata = new ObjectMetadata();
+      
+        metadata.setContentType(contentType);
+
+        return metadata;
     }
 }

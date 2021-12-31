@@ -23,14 +23,14 @@ public class SmtpEmailService extends AbstractEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    private static final Logger logger;
+    private static final Logger LOG;
 
 
     //-------------------------------------------------------------------------
     //		Initialization blocks
     //-------------------------------------------------------------------------
     static {
-        logger = LoggerFactory.getLogger(MockEmailService.class);
+        LOG = LoggerFactory.getLogger(MockEmailService.class);
     }
 
 
@@ -39,15 +39,15 @@ public class SmtpEmailService extends AbstractEmailService {
     //-------------------------------------------------------------------------
     @Override
     public void sendEmail(SimpleMailMessage message) {
-        logger.info("Sending email...");
+        LOG.info("Sending email...");
         mailSender.send(message);
-        logger.info("Email has sent");
+        LOG.info("Email has sent");
     }
 
     @Override
     public void sendHtmlEmail(MimeMessage message) {
-        logger.info("Sending email...");
+        LOG.info("Sending email...");
         javaMailSender.send(message);
-        logger.info("Email has sent");
+        LOG.info("Email has sent");
     }
 }

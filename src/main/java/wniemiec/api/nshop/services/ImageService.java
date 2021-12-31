@@ -25,26 +25,60 @@ public class ImageService {
     //		Methods
     //-------------------------------------------------------------------------
     public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
-        String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
-        if (!"png".equals(ext) && !"jpg".equals(ext)) {
-            throw new FileException("Only PNG and JPG are allowed");
-        }
+        assertFileCompatibility(uploadedFile);
 
         try {
-            BufferedImage img = ImageIO.read(uploadedFile.getInputStream());
-            if ("png".equals(ext)) {
-                img = pngToJpg(img);
-            }
-            return img;
-        } catch (IOException e) {
+            return parseImage(uploadedFile);
+        } 
+        catch (IOException e) {
             throw new FileException("Error while reading file");
         }
     }
 
-    public BufferedImage pngToJpg(BufferedImage img) {
-        BufferedImage jpgImage = new BufferedImage(img.getWidth(), img.getHeight(),
-                BufferedImage.TYPE_INT_RGB);
-        jpgImage.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
+    private void assertFileCompatibility(MultipartFile uploadedFile) {
+        String extension = extractExtensionFromUploadedFile(uploadedFile);
+
+        if (!hasCompatibility(extension)) {
+            throw new FileException("Only PNG and JPG are allowed");
+        }
+    }
+
+    private String extractExtensionFromUploadedFile(MultipartFile file) {
+        return FilenameUtils.getExtension(file.getOriginalFilename());
+    }
+
+    private boolean hasCompatibility(String extension) {
+        return  "png".equals(extension)
+                || "jpg".equals(extension);
+    }
+
+    private BufferedImage parseImage(MultipartFile uploadedFile) throws IOException {
+        BufferedImage image = ImageIO.read(uploadedFile.getInputStream());
+        
+        if (isPngImage(uploadedFile)) {
+            image = convertPngToJpg(image);
+        }
+
+        return image;
+    }
+
+    private boolean isPngImage(MultipartFile uploadedFile) {
+        String extension = extractExtensionFromUploadedFile(uploadedFile);
+        
+        return "png".equals(extension);
+    }
+
+    private BufferedImage convertPngToJpg(BufferedImage img) {
+        BufferedImage jpgImage = new BufferedImage(
+            img.getWidth(), 
+            img.getHeight(), 
+            BufferedImage.TYPE_INT_RGB
+        );
+
+        jpgImage
+            .createGraphics()
+            .drawImage(img, 0, 0, Color.WHITE, null);
+        
         return jpgImage;
     }
 
@@ -52,24 +86,39 @@ public class ImageService {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(img, extension, os);
+            
             return new ByteArrayInputStream(os.toByteArray());
-        } catch (IOException e) {
-            throw new FileException("Erro ao ler arquivo");
+        } 
+        catch (IOException e) {
+            throw new FileException("Error while reading file");
         }
     }
 
     public BufferedImage cropSquare(BufferedImage sourceImg) {
-        int min = (sourceImg.getHeight() <= sourceImg.getWidth()) ? sourceImg.getHeight() : sourceImg.getWidth();
+        int min = getMinDimension(sourceImg);
+        
         return Scalr.crop(
-                sourceImg,
-                (sourceImg.getWidth()/2) - (min/2),
-                (sourceImg.getHeight()/2) - (min/2),
-                min,
-                min
+            sourceImg,
+            (sourceImg.getWidth()/2) - (min/2),
+            (sourceImg.getHeight()/2) - (min/2),
+            min,
+            min
         );
     }
 
+    private int getMinDimension(BufferedImage sourceImg) {
+        if (sourceImg.getHeight() <= sourceImg.getWidth()) {
+            return sourceImg.getHeight();
+        }
+
+        return sourceImg.getWidth();
+    }
+
     public BufferedImage resize(BufferedImage sourceImg, int size) {
-        return Scalr.resize(sourceImg, Scalr.Method.ULTRA_QUALITY, size);
+        return Scalr.resize(
+            sourceImg, 
+            Scalr.Method.ULTRA_QUALITY, 
+            size
+        );
     }
 }
