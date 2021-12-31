@@ -8,7 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import wniemiec.api.nshop.dto.CredentialsDTO;
-
+import wniemiec.api.nshop.security.exception.UnknownException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,52 +17,108 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ * Responsible for handling JWT authentication.
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private JWTUtil jwtUtil;
     private AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+
+    //-------------------------------------------------------------------------
+    //		Constructor
+    //-------------------------------------------------------------------------
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, 
+                                   JWTUtil jwtUtil) {
         setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
+
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
-
+                                                HttpServletResponse res) 
+    throws AuthenticationException {
         try {
-            CredentialsDTO creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), CredentialsDTO.class);
+            UsernamePasswordAuthenticationToken authToken = generateAuthToken(req);
 
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>());
-
-            Authentication auth = authenticationManager.authenticate(authToken);
-            return auth;
+            return authenticationManager.authenticate(authToken);
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UnknownException(e.getMessage());
         }
+    }
+
+
+    private UsernamePasswordAuthenticationToken generateAuthToken(HttpServletRequest req)
+            throws IOException {
+        CredentialsDTO creds = getCredentials(req);
+
+        return new UsernamePasswordAuthenticationToken(
+            creds.getEmail(), 
+            creds.getPassword(), 
+            new ArrayList<>()
+        );
+    }
+
+
+    private CredentialsDTO getCredentials(HttpServletRequest req) throws IOException {
+        return new ObjectMapper().readValue(
+            req.getInputStream(), 
+            CredentialsDTO.class
+        );
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+                                            Authentication auth) 
+    throws IOException, ServletException {
+        String token = generateJwt(auth);
+        
+        addAuthorizationHeader(res, token);
+    }
 
-        String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
+
+    private void addAuthorizationHeader(HttpServletResponse res, String token) {
         res.addHeader("Authorization", "Bearer " + token);
         res.addHeader("access-control-expose-headers", "Authorization");
     }
 
+
+    private String generateJwt(Authentication auth) {
+        String username = extractUsernameFromAuthentication(auth);
+        
+        return jwtUtil.generateToken(username);
+    }
+
+
+    private String extractUsernameFromAuthentication(Authentication auth) {
+        return ((UserSpringSecurity) auth.getPrincipal()).getUsername();
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Classes
+    //-------------------------------------------------------------------------
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
         @Override
-        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-                throws IOException, ServletException {
+        public void onAuthenticationFailure(HttpServletRequest request, 
+                                            HttpServletResponse response, 
+                                            AuthenticationException exception)
+        throws IOException, ServletException {
             response.setStatus(401);
             response.setContentType("application/json");
             response.getWriter().append(json());
