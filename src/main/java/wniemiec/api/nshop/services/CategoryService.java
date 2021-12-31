@@ -40,7 +40,10 @@ public class CategoryService {
 
     private ObjectNotFoundException generateObjectNotFoundException(Integer id) {
         return new ObjectNotFoundException(
-            "Object not found! Id: " + id + ", Type: " + Category.class.getName()
+            "Object not found! Id: " 
+            + id 
+            + ", Type: " 
+            + Category.class.getName()
         );
     }
 

@@ -28,7 +28,7 @@ public class CityService {
         return repository
             .findCitiesByStateIdOrderByName(stateId)
             .stream()
-            .map(city -> new CityDTO(city))
+            .map(CityDTO::new)
             .collect(Collectors.toList());
     }
 }

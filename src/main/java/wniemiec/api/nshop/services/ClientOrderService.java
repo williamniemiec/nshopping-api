@@ -52,7 +52,10 @@ public class ClientOrderService {
         Optional<ClientOrder> order = repository.findById(id);
 
         return order.orElseThrow(() -> new ObjectNotFoundException(
-                "Object not found! Id: " + id + ", Type: " + ClientOrder.class.getName()
+            "Object not found! Id: " 
+            + id 
+            + ", Type: " 
+            + ClientOrder.class.getName()
         ));
     }
 
@@ -60,48 +63,64 @@ public class ClientOrderService {
         ClientOrder order = orderDto.toClientOrder(
             clientService.findById(orderDto.getClient().getId())
         );
+              
+        storeClientOrder(order);
+        storeClientOrderItems(order);
+        storeClientOrderPayment(order);
 
-/*        
-        order.setId(null);
-        order.setClient();
-        order.setDate(new Date());
-        order.getPayment().setStatus(PaymentStatus.PENDING);
-        order.getPayment().setClientOrder(order);
-*/
+        emailService.sendOrderConfirmationHtmlEmail(order);
 
-        if (order.getPayment() instanceof BoletoPayment) {
-            BoletoPayment payment = (BoletoPayment) order.getPayment();
-            boletoService.fillPayment(payment, order.getDate());
-        }
+        return order;
+    }
 
+    private void storeClientOrder(ClientOrder order) {
         ClientOrder storedOrder = repository.save(order);
-        paymentService.save(storedOrder.getPayment());
 
+        order.setId(storedOrder.getId());
+    }
+
+    private void fillOrderItemsUsingItsId(ClientOrder storedOrder) {
         for (ClientOrderItem orderItem : storedOrder.getProducts()) {
             orderItem.setDiscount(0.0);
+            
             Product p = productService.findOne(orderItem.getProduct().getId());
             orderItem.setProduct(p);
             orderItem.setPrice(p.getPrice());
             orderItem.setOrder(storedOrder);
         }
+    }
 
+    private void storeClientOrderItems(ClientOrder order) {
+        fillOrderItemsUsingItsId(order);
+        
         clientOrderItemService.save(order.getProducts());
+    }
 
-        //System.out.println(storedOrder);
-        emailService.sendOrderConfirmationHtmlEmail(storedOrder);
+    private void storeClientOrderPayment(ClientOrder order) {
+        if (order.getPayment() instanceof BoletoPayment) {
+            BoletoPayment payment = (BoletoPayment) order.getPayment();
 
-        return storedOrder;
+            boletoService.fillPayment(payment, order.getDate());
+        }
+        
+        paymentService.save(order.getPayment());
     }
 
     public Page<ClientOrder> findPage(Integer page, Integer linesPerPage,
                                       String orderBy, String direction) {
         UserSpringSecurity user = UserService.authenticatedUser();
 
-        if (user == null)
+        if (user == null) {
             throw new AuthorizationException("Access denied");
+        }
 
         Client client = clientService.findById(user.getId());
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        PageRequest pageRequest = PageRequest.of(
+            page, 
+            linesPerPage, 
+            Sort.Direction.valueOf(direction), 
+            orderBy
+        );
 
         return repository.findByClient(client, pageRequest);
     }

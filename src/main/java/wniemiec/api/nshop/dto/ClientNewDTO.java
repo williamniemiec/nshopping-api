@@ -1,6 +1,11 @@
 package wniemiec.api.nshop.dto;
 
 import org.hibernate.validator.constraints.Length;
+
+import wniemiec.api.nshop.domain.Address;
+import wniemiec.api.nshop.domain.City;
+import wniemiec.api.nshop.domain.Client;
+import wniemiec.api.nshop.domain.enums.ClientType;
 import wniemiec.api.nshop.services.validation.ClientInsert;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -53,6 +58,44 @@ public class ClientNewDTO implements Serializable {
 
     private String phone2;
     private String phone3;
+
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
+    public Client toClient() {
+        Client client = new Client(
+            null,
+            name,
+            email,
+            documentId,
+            ClientType.toEnum(type),
+            password
+        );
+        City city = new City(cityId, null, null);
+        Address address = new Address(
+            getStreetName(),
+            getNumber(),
+            getApt(),
+            getDistrict(),
+            getZip(),
+            client,
+            city
+        );
+
+        client.getAddresses().add(address);
+        client.getPhones().add(getPhone1());
+
+        if (getPhone2() != null) {
+            client.getPhones().add(getPhone2());
+        }
+
+        if (getPhone3() != null) {
+            client.getPhones().add(getPhone3());
+        }
+
+        return client;
+    }
 
 
     //-------------------------------------------------------------------------

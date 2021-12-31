@@ -10,10 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import wniemiec.api.nshop.domain.Address;
-import wniemiec.api.nshop.domain.City;
 import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.domain.enums.ClientType;
 import wniemiec.api.nshop.domain.enums.Profile;
 import wniemiec.api.nshop.dto.ClientDTO;
 import wniemiec.api.nshop.dto.ClientNewDTO;
@@ -23,7 +20,6 @@ import wniemiec.api.nshop.services.exceptions.DataIntegrityException;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
 import wniemiec.api.nshop.repositories.AddressRepository;
 import wniemiec.api.nshop.repositories.ClientRepository;
-
 import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.ArrayList;
@@ -66,33 +62,53 @@ public class ClientService {
     //		Methods
     //-------------------------------------------------------------------------
     public Client searchById(Integer id) {
-        UserSpringSecurity user = UserService.authenticatedUser();
-        if (user == null || (!user.hasRole(Profile.ADMIN) && !id.equals(user.getId())))
-            throw new AuthorizationException("Access denied");
+        if (!hasSearchAuthorization(id))
+            throw generateAccessDeniedException();
 
         Optional<Client> client = repository.findById(id);
 
-        return client.orElseThrow(() -> new ObjectNotFoundException(
-                "Object not found! Id: " + id + ", Type: " + Client.class.getName()
-        ));
+        return client.orElseThrow(() -> generateObjectNotFoundException(id));
+    }
+
+    private boolean hasSearchAuthorization(Integer id) {
+        UserSpringSecurity authenticatedUser = UserService.authenticatedUser();
+
+        if (authenticatedUser == null) {
+            return false;
+        }
+
+        return  authenticatedUser.hasRole(Profile.ADMIN) 
+                || authenticatedUser.getId().equals(id);
+    }
+
+    private AuthorizationException generateAccessDeniedException() {
+        return new AuthorizationException("Access denied");
+    }
+
+    private ObjectNotFoundException generateObjectNotFoundException(Integer id) {
+        return new ObjectNotFoundException(
+            "Object not found! Id: " 
+            + id
+            + ", Type: " 
+            + Client.class.getName()
+        );
     }
 
     public Client update(Client client) {
         if (client.getId() == null) {
-            throw new ObjectNotFoundException(
-                    "Object not found! Id: " + client.getId() + ", Type: " + Client.class.getName()
-            );
+            throw generateObjectNotFoundException(client.getId());
         }
 
-        Client currentClient = repository.findById(client.getId()).get();
+        Client currentClient = findById(client.getId());
+
         client.setDocumentId(currentClient.getDocumentId());
         client.setType(currentClient.getType());
 
         return repository.save(client);
     }
 
-    public Client update(ClientDTO client) {
-        return update(new Client(client.getId(), client.getName(), client.getEmail(), null, null, null));
+    public Client update(ClientDTO clientDto) {
+        return update(clientDto.toClient());
     }
 
     public void delete(Integer id) {
@@ -100,7 +116,8 @@ public class ClientService {
             repository.deleteById(id);
         }
         catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("It is not possible to delete a client with orders");
+            throw new DataIntegrityException("It is not possible to delete a " + 
+                                             "client with orders");
         }
     }
 
@@ -116,47 +133,34 @@ public class ClientService {
 
     public Page<ClientDTO> findPage(Integer page, Integer linesPerPage,
                                     String orderBy, String direction) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        PageRequest pageRequest = PageRequest.of(
+            page, 
+            linesPerPage, 
+            Sort.Direction.valueOf(direction), 
+            orderBy
+        );
         Page<Client> pages = repository.findAll(pageRequest);
 
         return pages.map(ClientDTO::new);
     }
 
     @Transactional
-    public Client insert(ClientNewDTO client) {
-        Client newClient = new Client(
-            null,
-            client.getName(),
-            client.getEmail(),
-            client.getDocumentId(),
-            ClientType.toEnum(client.getType()),
-            passwordEncoder.encode(client.getPassword())
-        );
+    public Client insert(ClientNewDTO clientDto) {
+        Client newClient = clientDto.toClient();
+        
+        encriptClientPassword(newClient);
 
-        City city = new City(client.getCityId(), null, null);
-
-        Address address = new Address(
-            client.getStreetName(),
-            client.getNumber(),
-            client.getApt(),
-            client.getDistrict(),
-            client.getZip(),
-            newClient,
-            city
-        );
-
-        newClient.getAddresses().add(address);
-        newClient.getPhones().add(client.getPhone1());
-
-        if (client.getPhone2() != null)
-            newClient.getPhones().add(client.getPhone2());
-
-        if (client.getPhone3() != null)
-            newClient.getPhones().add(client.getPhone3());
-
-        addressRepository.save(address);
+        addressRepository.save(newClient.getAddresses().get(0));
 
         return insert(newClient);
+    }
+
+    private void encriptClientPassword(Client client) {
+        String password = client.getPassword();
+        
+        client.setPassword(
+            passwordEncoder.encode(password)
+        );
     }
 
     public Client insert(Client client) {
@@ -169,10 +173,10 @@ public class ClientService {
 
     public Client findByEmail(String email) {
         Client client = repository.findByEmail(email);
-        UserSpringSecurity user = UserService.authenticatedUser();
 
-        if (user == null || (!user.hasRole(Profile.ADMIN) && !client.getId().equals(user.getId())))
-            throw new AuthorizationException("Access denied");
+        if (hasSearchAuthorization(client.getId())) {
+            throw generateAccessDeniedException();
+        }
 
         return client;
     }
@@ -182,15 +186,37 @@ public class ClientService {
     }
 
     public URI uploadProfilePicture(MultipartFile multipartFile) {
-        UserSpringSecurity user = UserService.authenticatedUser();
-        if (user == null)
-            throw new AuthorizationException("Access denied");
+        if (!hasUploadPictureAuthorization()) {
+            throw generateAccessDeniedException();
+        }
 
+        BufferedImage jpgImage = parseImage(multipartFile);
+
+        return s3service.uploadFile(
+            imageService.getInputStream(jpgImage, "jpg"), 
+            generateImageFilename(), 
+            "image"
+        );
+    }
+
+    private boolean hasUploadPictureAuthorization() {
+        UserSpringSecurity user = UserService.authenticatedUser();
+
+        return (user != null);
+    }
+
+    private BufferedImage parseImage(MultipartFile multipartFile) {
         BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+        
         jpgImage = imageService.cropSquare(jpgImage);
         jpgImage = imageService.resize(jpgImage, size);
-        String filename = prefix + user.getId() + ".jpg";
+        
+        return jpgImage;
+    }
 
-        return s3service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), filename, "image");
+    private String generateImageFilename() {
+        UserSpringSecurity user = UserService.authenticatedUser();
+
+        return prefix + user.getId() + ".jpg";
     }
 }
