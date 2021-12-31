@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.repositories;
+package wniemiec.api.nshopping.repositories;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import wniemiec.api.nshop.domain.Category;
-import wniemiec.api.nshop.domain.Product;
+import wniemiec.api.nshopping.domain.Category;
+import wniemiec.api.nshopping.domain.Product;
 import java.util.List;
 
 

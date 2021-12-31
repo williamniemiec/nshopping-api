@@ -1,12 +1,11 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
 import org.hibernate.validator.constraints.Length;
-
-import wniemiec.api.nshop.domain.Address;
-import wniemiec.api.nshop.domain.City;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.domain.enums.ClientType;
-import wniemiec.api.nshop.services.validation.ClientInsert;
+import wniemiec.api.nshopping.domain.Address;
+import wniemiec.api.nshopping.domain.City;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.domain.enums.ClientType;
+import wniemiec.api.nshopping.services.validation.ClientInsert;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;

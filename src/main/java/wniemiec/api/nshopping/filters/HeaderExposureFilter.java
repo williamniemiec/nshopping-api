@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.filters;
+package wniemiec.api.nshopping.filters;
 
 import org.springframework.stereotype.Component;
 import javax.servlet.*;

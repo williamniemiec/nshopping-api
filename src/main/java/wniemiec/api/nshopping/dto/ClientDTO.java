@@ -1,8 +1,8 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
 import org.hibernate.validator.constraints.Length;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.services.validation.ClientUpdate;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.services.validation.ClientUpdate;
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

@@ -1,4 +1,4 @@
-package wniemiec.api.nshop;
+package wniemiec.api.nshopping;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

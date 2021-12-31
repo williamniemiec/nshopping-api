@@ -1,7 +1,7 @@
-package wniemiec.api.nshop.services.validation;
+package wniemiec.api.nshopping.services.validation;
 
-import wniemiec.api.nshop.controllers.exception.FieldMessage;
 import javax.validation.ConstraintValidatorContext;
+import wniemiec.api.nshopping.controllers.exception.FieldMessage;
 import java.util.List;
 
 

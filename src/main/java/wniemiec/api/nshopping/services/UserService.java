@@ -1,7 +1,7 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import wniemiec.api.nshop.security.UserSpringSecurity;
+import wniemiec.api.nshopping.security.UserSpringSecurity;
 
 
 /**

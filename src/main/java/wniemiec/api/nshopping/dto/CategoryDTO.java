@@ -1,7 +1,7 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
 import org.hibernate.validator.constraints.Length;
-import wniemiec.api.nshop.domain.Category;
+import wniemiec.api.nshopping.domain.Category;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 

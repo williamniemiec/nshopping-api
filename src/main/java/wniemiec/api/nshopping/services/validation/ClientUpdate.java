@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.services.validation;
+package wniemiec.api.nshopping.services.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

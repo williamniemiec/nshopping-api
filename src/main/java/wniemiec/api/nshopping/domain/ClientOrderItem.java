@@ -1,7 +1,6 @@
-package wniemiec.api.nshop.domain;
+package wniemiec.api.nshopping.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.text.NumberFormat;

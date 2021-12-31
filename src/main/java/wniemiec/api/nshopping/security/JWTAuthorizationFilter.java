@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.security;
+package wniemiec.api.nshopping.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,14 +1,13 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.*;
-import wniemiec.api.nshop.domain.enums.ClientType;
-import wniemiec.api.nshop.domain.enums.PaymentStatus;
-import wniemiec.api.nshop.domain.enums.Profile;
-import wniemiec.api.nshop.repositories.*;
-
+import wniemiec.api.nshopping.domain.*;
+import wniemiec.api.nshopping.domain.enums.ClientType;
+import wniemiec.api.nshopping.domain.enums.PaymentStatus;
+import wniemiec.api.nshopping.domain.enums.Profile;
+import wniemiec.api.nshopping.repositories.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;

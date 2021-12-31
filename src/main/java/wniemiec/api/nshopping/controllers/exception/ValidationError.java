@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.controllers.exception;
+package wniemiec.api.nshopping.controllers.exception;
 
 import java.util.ArrayList;
 import java.util.List;

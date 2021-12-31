@@ -1,11 +1,10 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.apache.commons.io.FilenameUtils;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import wniemiec.api.nshop.services.exceptions.FileException;
-
+import wniemiec.api.nshopping.services.exceptions.FileException;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

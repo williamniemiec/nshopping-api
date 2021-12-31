@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.security;
+package wniemiec.api.nshopping.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

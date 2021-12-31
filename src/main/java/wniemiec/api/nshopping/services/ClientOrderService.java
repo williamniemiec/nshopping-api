@@ -1,16 +1,16 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.*;
-import wniemiec.api.nshop.dto.ClientOrderDTO;
-import wniemiec.api.nshop.security.UserSpringSecurity;
-import wniemiec.api.nshop.services.exceptions.AuthorizationException;
-import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
-import wniemiec.api.nshop.repositories.ClientOrderRepository;
+import wniemiec.api.nshopping.domain.*;
+import wniemiec.api.nshopping.dto.ClientOrderDTO;
+import wniemiec.api.nshopping.repositories.ClientOrderRepository;
+import wniemiec.api.nshopping.security.UserSpringSecurity;
+import wniemiec.api.nshopping.services.exceptions.AuthorizationException;
+import wniemiec.api.nshopping.services.exceptions.ObjectNotFoundException;
 import java.util.Optional;
 
 

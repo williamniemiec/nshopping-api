@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.domain.enums;
+package wniemiec.api.nshopping.domain.enums;
 
 
 /**

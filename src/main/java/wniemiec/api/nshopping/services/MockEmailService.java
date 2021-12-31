@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

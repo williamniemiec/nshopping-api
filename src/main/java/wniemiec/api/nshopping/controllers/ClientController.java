@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.controllers;
+package wniemiec.api.nshopping.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,10 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.dto.ClientDTO;
-import wniemiec.api.nshop.dto.ClientNewDTO;
-import wniemiec.api.nshop.services.ClientService;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.dto.ClientDTO;
+import wniemiec.api.nshopping.dto.ClientNewDTO;
+import wniemiec.api.nshopping.services.ClientService;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;

@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.controllers.exception;
+package wniemiec.api.nshopping.controllers.exception;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -9,10 +9,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import wniemiec.api.nshop.services.exceptions.AuthorizationException;
-import wniemiec.api.nshop.services.exceptions.DataIntegrityException;
-import wniemiec.api.nshop.services.exceptions.FileException;
-import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
+import wniemiec.api.nshopping.services.exceptions.AuthorizationException;
+import wniemiec.api.nshopping.services.exceptions.DataIntegrityException;
+import wniemiec.api.nshopping.services.exceptions.FileException;
+import wniemiec.api.nshopping.services.exceptions.ObjectNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 

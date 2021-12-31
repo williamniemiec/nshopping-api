@@ -1,13 +1,13 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.repositories.ClientRepository;
-import wniemiec.api.nshop.security.UserSpringSecurity;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.repositories.ClientRepository;
+import wniemiec.api.nshopping.security.UserSpringSecurity;
 
 
 /**

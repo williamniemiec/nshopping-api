@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.config;
+package wniemiec.api.nshopping.config;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.services.validation.util;
+package wniemiec.api.nshopping.services.validation.util;
 
 
 /**

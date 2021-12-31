@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.security;
+package wniemiec.api.nshopping.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,8 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import wniemiec.api.nshop.dto.CredentialsDTO;
-import wniemiec.api.nshop.security.exception.UnknownException;
+import wniemiec.api.nshopping.dto.CredentialsDTO;
+import wniemiec.api.nshopping.security.exception.UnknownException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

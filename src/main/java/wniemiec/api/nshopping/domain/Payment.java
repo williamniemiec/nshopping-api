@@ -1,8 +1,8 @@
-package wniemiec.api.nshop.domain;
+package wniemiec.api.nshopping.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import wniemiec.api.nshop.domain.enums.PaymentStatus;
+import wniemiec.api.nshopping.domain.enums.PaymentStatus;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

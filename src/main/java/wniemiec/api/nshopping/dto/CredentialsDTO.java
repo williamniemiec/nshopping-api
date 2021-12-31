@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
 import java.io.Serializable;
 

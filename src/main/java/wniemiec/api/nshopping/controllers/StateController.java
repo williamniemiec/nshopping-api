@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.controllers;
+package wniemiec.api.nshopping.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wniemiec.api.nshop.dto.CityDTO;
-import wniemiec.api.nshop.dto.StateDTO;
-import wniemiec.api.nshop.services.CityService;
-import wniemiec.api.nshop.services.StateService;
+import wniemiec.api.nshopping.dto.CityDTO;
+import wniemiec.api.nshopping.dto.StateDTO;
+import wniemiec.api.nshopping.services.CityService;
+import wniemiec.api.nshopping.services.StateService;
 import java.util.List;
 
 

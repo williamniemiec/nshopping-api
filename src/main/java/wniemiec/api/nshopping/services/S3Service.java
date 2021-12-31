@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import wniemiec.api.nshop.services.exceptions.FileException;
+import wniemiec.api.nshopping.services.exceptions.FileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

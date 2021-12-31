@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.security.exception;
+package wniemiec.api.nshopping.security.exception;
 
 
 /**

@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,8 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.domain.ClientOrder;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.domain.ClientOrder;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;

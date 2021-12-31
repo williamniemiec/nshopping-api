@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.domain;
+package wniemiec.api.nshopping.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

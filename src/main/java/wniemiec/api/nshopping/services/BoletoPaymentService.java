@@ -1,7 +1,8 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.BoletoPayment;
+
+import wniemiec.api.nshopping.domain.BoletoPayment;
 import java.util.Calendar;
 import java.util.Date;
 

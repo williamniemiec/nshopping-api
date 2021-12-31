@@ -1,8 +1,8 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.domain.ClientOrder;
 import org.springframework.mail.SimpleMailMessage;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.domain.ClientOrder;
 import javax.mail.internet.MimeMessage;
 
 

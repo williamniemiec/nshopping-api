@@ -1,9 +1,9 @@
-package wniemiec.api.nshop.security;
+package wniemiec.api.nshopping.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import wniemiec.api.nshop.domain.enums.Profile;
+import wniemiec.api.nshopping.domain.enums.Profile;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,15 +1,15 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
-import wniemiec.api.nshop.domain.Address;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.domain.ClientOrder;
-import wniemiec.api.nshop.domain.ClientOrderItem;
-import wniemiec.api.nshop.domain.Payment;
-import wniemiec.api.nshop.domain.enums.PaymentStatus;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import wniemiec.api.nshopping.domain.Address;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.domain.ClientOrder;
+import wniemiec.api.nshopping.domain.ClientOrderItem;
+import wniemiec.api.nshopping.domain.Payment;
+import wniemiec.api.nshopping.domain.enums.PaymentStatus;
 
 
 /**

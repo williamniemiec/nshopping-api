@@ -1,9 +1,9 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.Payment;
-import wniemiec.api.nshop.repositories.PaymentRepository;
+import wniemiec.api.nshopping.domain.Payment;
+import wniemiec.api.nshopping.repositories.PaymentRepository;
 
 
 /**

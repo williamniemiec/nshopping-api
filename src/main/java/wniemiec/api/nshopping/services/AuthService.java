@@ -1,10 +1,10 @@
-package wniemiec.api.nshop.services;
+package wniemiec.api.nshopping.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import wniemiec.api.nshop.domain.Client;
-import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
+import wniemiec.api.nshopping.domain.Client;
+import wniemiec.api.nshopping.services.exceptions.ObjectNotFoundException;
 import java.util.Random;
 
 

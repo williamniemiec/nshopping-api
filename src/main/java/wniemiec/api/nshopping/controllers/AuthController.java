@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.controllers;
+package wniemiec.api.nshopping.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wniemiec.api.nshop.dto.EmailDTO;
-import wniemiec.api.nshop.security.JWTUtil;
-import wniemiec.api.nshop.security.UserSpringSecurity;
-import wniemiec.api.nshop.services.AuthService;
-import wniemiec.api.nshop.services.UserService;
+import wniemiec.api.nshopping.dto.EmailDTO;
+import wniemiec.api.nshopping.security.JWTUtil;
+import wniemiec.api.nshopping.security.UserSpringSecurity;
+import wniemiec.api.nshopping.services.AuthService;
+import wniemiec.api.nshopping.services.UserService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 

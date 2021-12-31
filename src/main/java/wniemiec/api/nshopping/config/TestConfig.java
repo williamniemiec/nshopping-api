@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import wniemiec.api.nshopping.services.DatabaseService;
 import wniemiec.api.nshopping.services.EmailService;
 import wniemiec.api.nshopping.services.MockEmailService;
-
 import java.text.ParseException;
 
 

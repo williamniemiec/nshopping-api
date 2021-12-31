@@ -1,4 +1,4 @@
-package wniemiec.api.nshop.domain;
+package wniemiec.api.nshopping.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;

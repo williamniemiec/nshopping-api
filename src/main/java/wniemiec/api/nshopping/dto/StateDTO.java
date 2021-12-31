@@ -1,7 +1,7 @@
-package wniemiec.api.nshop.dto;
+package wniemiec.api.nshopping.dto;
 
-import wniemiec.api.nshop.domain.State;
 import java.io.Serializable;
+import wniemiec.api.nshopping.domain.State;
 
 
 /**
