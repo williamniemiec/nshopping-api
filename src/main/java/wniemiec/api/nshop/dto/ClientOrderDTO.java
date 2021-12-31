@@ -21,7 +21,6 @@ public class ClientOrderDTO implements Serializable {
     //		Attributes
     //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
-
     private Payment payment;
     private Client client;
     private Address deliveryAddress;
@@ -51,10 +50,12 @@ public class ClientOrderDTO implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+
         result = prime * result + ((client == null) ? 0 : client.hashCode());
         result = prime * result + ((deliveryAddress == null) ? 0 : deliveryAddress.hashCode());
         result = prime * result + ((payment == null) ? 0 : payment.hashCode());
         result = prime * result + ((products == null) ? 0 : products.hashCode());
+
         return result;
     }
 
@@ -74,37 +75,67 @@ public class ClientOrderDTO implements Serializable {
 
         ClientOrderDTO other = (ClientOrderDTO) obj;
 
-        if (client == null) {
-            if (other.client != null) {
-                return false;
-            }
-        } 
-        else if (!client.equals(other.client)) {
+        if (!hasSameClient(other.client)) {
             return false;
         }
 
-        if (deliveryAddress == null) {
-            if (other.deliveryAddress != null) {
-                return false;
-            }
-        } 
-        else if (!deliveryAddress.equals(other.deliveryAddress)) {
+        if (!hasSameDeliveryAddress(other.deliveryAddress)) {
             return false;
         }
 
-        if (payment == null) {
-            if (other.payment != null) {
-                return false;
-            }
-        } 
-        else if (!payment.equals(other.payment)) {
+        if (!hasSamePayment(other.payment)) {
             return false;
         }
 
-        return areSameProducts(other.products);
+        return haveSameProducts(other.products);
     }
 
-    private boolean areSameProducts(Set<ClientOrderItem> otherProducts) {
+    private boolean hasSameClient(Client otherClient) {
+        boolean sameClient = true;
+
+        if (client == null) {
+            if (otherClient != null) {
+                sameClient = false;
+            }
+        } 
+        else if (!client.equals(otherClient)) {
+            sameClient = false;
+        }
+
+        return sameClient;
+    }
+
+    private boolean hasSameDeliveryAddress(Address otherDeliveryAddress) {
+        boolean sameDeliveryAddress = true;
+
+        if (deliveryAddress == null) {
+            if (otherDeliveryAddress != null) {
+                sameDeliveryAddress = false;
+            }
+        } 
+        else if (!deliveryAddress.equals(otherDeliveryAddress)) {
+            sameDeliveryAddress = false;
+        }
+
+        return sameDeliveryAddress;
+    }
+
+    private boolean hasSamePayment(Payment otherPayment) {
+        boolean samePayment = true;
+
+        if (payment == null) {
+            if (otherPayment != null) {
+                samePayment = false;
+            }
+        } 
+        else if (!payment.equals(otherPayment)) {
+            samePayment = false;
+        }
+
+        return samePayment;
+    }
+
+    private boolean haveSameProducts(Set<ClientOrderItem> otherProducts) {
         boolean sameProducts = true;
 
         if (products == null) {

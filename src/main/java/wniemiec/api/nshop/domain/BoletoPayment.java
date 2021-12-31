@@ -66,26 +66,42 @@ public class BoletoPayment extends Payment {
         }
         
         BoletoPayment other = (BoletoPayment) obj;
-        
-        if (expirationDay == null) {
-            if (other.expirationDay != null) {
-                return false;
-            }
-        } 
-        else if (!expirationDay.equals(other.expirationDay)) {
+
+        if (!hasSameExpirationDay(other.expirationDay)) {
             return false;
         }
+
+        return hasSamePaymentDay(other.paymentDay);
+    }
+
+    private boolean hasSameExpirationDay(Date otherExpirationDay) {
+        boolean sameExpirationDay = true;
+
+        if (expirationDay == null) {
+            if (otherExpirationDay != null) {
+                sameExpirationDay = false;
+            }
+        } 
+        else if (!expirationDay.equals(otherExpirationDay)) {
+            sameExpirationDay = false;
+        }
+
+        return sameExpirationDay;
+    }
+
+    private boolean hasSamePaymentDay(Date otherPaymentDay) {
+        boolean samePaymentDay = true;
 
         if (paymentDay == null) {
-            if (other.paymentDay != null) {
-                return false;
+            if (otherPaymentDay != null) {
+                samePaymentDay = false;
             }
         } 
-        else if (!paymentDay.equals(other.paymentDay)) {
-            return false;
+        else if (!paymentDay.equals(otherPaymentDay)) {
+            samePaymentDay = false;
         }
 
-        return true;
+        return samePaymentDay;
     }
     
 

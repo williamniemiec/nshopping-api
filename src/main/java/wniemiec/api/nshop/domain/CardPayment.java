@@ -61,17 +61,23 @@ public class CardPayment extends Payment {
         }
         
         CardPayment other = (CardPayment) obj;
-        
+
+        return haveSameInstallments(other.installments);
+    }
+
+    private boolean haveSameInstallments(Integer otherInstallments) {
+        boolean sameInstallments = true;
+
         if (installments == null) {
-            if (other.installments != null) {
-                return false;
+            if (otherInstallments != null) {
+                sameInstallments = false;
             }
         } 
-        else if (!installments.equals(other.installments)) {
-            return false;
+        else if (!installments.equals(otherInstallments)) {
+            sameInstallments = false;
         }
 
-        return true;
+        return sameInstallments;
     }
 
 
