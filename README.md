@@ -38,7 +38,7 @@ See [here](https://wniemiec-api-nshopping.herokuapp.com/swagger-ui/index.html?co
 Details about each version are documented in the [releases section](https://github.com/williamniemiec/nshopping-api/releases).
 
 ## 🗺 Project structure
-![architecture](https://raw.githubusercontent.com/williamniemiec/nshopping-api/master/docs/images/design/schema.jpg)
+![architecture](https://raw.githubusercontent.com/williamniemiec/nshopping-api/master/docs/images/design/architecture.jpg)
 
 ## 📁 Files
 
