@@ -28,131 +28,152 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e,
                                                         HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.NOT_FOUND.value(),
-                "Not found",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.NOT_FOUND.value())
+            .error("Not found")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(error);
     }
 
     @ExceptionHandler(DataIntegrityException.class)
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e,
                                                        HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Data integrity",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.BAD_REQUEST.value())
+            .error("Data integrity")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> dataValidation(MethodArgumentNotValidException e,
                                                         HttpServletRequest request) {
-        ValidationError err = new ValidationError(
-                System.currentTimeMillis(),
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
-                "Validation error",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        ValidationError error = new ValidationError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+            .error("Validation error")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
         for (FieldError field : e.getBindingResult().getFieldErrors()) {
-            err.addError(field.getField(), field.getDefaultMessage());
+            error.addError(
+                field.getField(), 
+                field.getDefaultMessage()
+            );
         }
 
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+        return ResponseEntity
+            .status(HttpStatus.UNPROCESSABLE_ENTITY)
+            .body(error);
     }
 
     @ExceptionHandler(AuthorizationException.class)
     public ResponseEntity<StandardError> authorization(AuthorizationException e,
                                                        HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.FORBIDDEN.value(),
-                "Authorization",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.FORBIDDEN.value())
+            .error("Authorization")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+        return ResponseEntity
+            .status(HttpStatus.FORBIDDEN)
+            .body(error);
     }
 
     @ExceptionHandler(FileException.class)
     public ResponseEntity<StandardError> file(FileException e,
                                               HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(),
-                "File",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.BAD_REQUEST.value())
+            .error("File")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(error);
     }
 
     @ExceptionHandler(AmazonServiceException.class)
     public ResponseEntity<StandardError> amazonService(AmazonServiceException e,
                                                        HttpServletRequest request) {
         HttpStatus httpStatus = HttpStatus.valueOf(e.getStatusCode());
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(httpStatus.value())
+            .error("Amazon service")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                httpStatus.value(),
-                "Amazon service",
-                e.getMessage(),
-                request.getRequestURI()
-        );
-
-        return ResponseEntity.status(httpStatus).body(err);
+        return ResponseEntity
+            .status(httpStatus)
+            .body(error);
     }
 
     @ExceptionHandler(AmazonClientException.class)
     public ResponseEntity<StandardError> amazonClient(AmazonClientException e,
                                                       HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Amazon client",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.BAD_REQUEST.value())
+            .error("Amazon client")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(error);
     }
 
     @ExceptionHandler(AmazonS3Exception.class)
     public ResponseEntity<StandardError> amazonS3(AmazonClientException e,
-                                                      HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Amazon S3",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+                                                  HttpServletRequest request) {
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.BAD_REQUEST.value())
+            .error("Amazon S3")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(error);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<StandardError> unknown(Exception e, HttpServletRequest request) {
-        StandardError err = new StandardError(
-                System.currentTimeMillis(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Unknown",
-                e.getMessage(),
-                request.getRequestURI()
-        );
+    public ResponseEntity<StandardError> unknown(Exception e, 
+                                                 HttpServletRequest request) {
+        StandardError error = new StandardError.Builder()
+            .timestamp(System.currentTimeMillis())
+            .status(HttpStatus.BAD_REQUEST.value())
+            .error("Unknown")
+            .message(e.getMessage())
+            .path(request.getRequestURI())
+            .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(error);
     }
 }

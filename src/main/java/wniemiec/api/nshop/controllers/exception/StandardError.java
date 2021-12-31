@@ -23,13 +23,74 @@ public class StandardError implements Serializable {
     //-------------------------------------------------------------------------
     //		Constructor
     //-------------------------------------------------------------------------
-    public StandardError(long timestamp, Integer status, String error, 
-                         String message, String path) {
+    protected StandardError(long timestamp, Integer status, String error, 
+                            String message, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
         this.message = message;
         this.path = path;
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Builder
+    //-------------------------------------------------------------------------
+    public static class Builder {
+
+        private long timestamp;
+        private Integer status;
+        private String error;
+        private String message;
+        private String path;
+
+        public Builder() {
+            timestamp = 0;
+            status = -1;
+            error = "undefined";
+            message = "";
+            path = "";
+        }
+
+        public Builder timestamp(long time) {
+            timestamp = time;
+
+            return this;
+        }
+
+        public Builder status(Integer statusCode) {
+            status = statusCode;
+
+            return this;
+        }
+
+        public Builder error(String errorType) {
+            error = errorType;
+
+            return this;
+        }
+
+        public Builder message(String errorMessage) {
+            message = errorMessage;
+
+            return this;
+        }
+
+        public Builder path(String sourcePath) {
+            path = sourcePath;
+
+            return this;
+        }
+
+        public StandardError build() {
+            return new StandardError(
+                timestamp, 
+                status, 
+                error, 
+                message, 
+                path
+            );
+        }
     }
 
 

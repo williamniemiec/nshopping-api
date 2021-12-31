@@ -19,9 +19,70 @@ public class ValidationError extends StandardError {
     //-------------------------------------------------------------------------
     //		Constructor
     //-------------------------------------------------------------------------
-    public ValidationError(long timestamp, Integer status, String error, 
+    private ValidationError(long timestamp, Integer status, String error, 
                            String message, String path) {
         super(timestamp, status, error, message, path);
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Builder
+    //-------------------------------------------------------------------------
+    public static class Builder {
+
+        private long timestamp;
+        private Integer status;
+        private String error;
+        private String message;
+        private String path;
+
+        public Builder() {
+            timestamp = 0;
+            status = -1;
+            error = "undefined";
+            message = "";
+            path = "";
+        }
+
+        public Builder timestamp(long time) {
+            timestamp = time;
+
+            return this;
+        }
+
+        public Builder status(Integer statusCode) {
+            status = statusCode;
+
+            return this;
+        }
+
+        public Builder error(String errorType) {
+            error = errorType;
+
+            return this;
+        }
+
+        public Builder message(String errorMessage) {
+            message = errorMessage;
+
+            return this;
+        }
+
+        public Builder path(String sourcePath) {
+            path = sourcePath;
+
+            return this;
+        }
+
+        public ValidationError build() {
+            return new ValidationError(
+                timestamp, 
+                status, 
+                error, 
+                message, 
+                path
+            );
+        }
     }
 
 
