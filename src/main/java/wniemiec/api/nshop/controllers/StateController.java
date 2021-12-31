@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value="/states")
-public class StateResource {
+public class StateController {
 
     //-------------------------------------------------------------------------
     //		Attributes

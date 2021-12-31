@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value="/clients")
-public class ClientResource {
+public class ClientController {
 
     //-------------------------------------------------------------------------
     //		Attributes

@@ -17,7 +17,7 @@ import java.net.URI;
  */
 @RestController
 @RequestMapping(value="/orders")
-public class ClientOrderResource {
+public class ClientOrderController {
 
     //-------------------------------------------------------------------------
     //		Attributes

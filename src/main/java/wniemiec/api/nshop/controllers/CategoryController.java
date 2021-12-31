@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value="/categories")
-public class CategoryResource {
+public class CategoryController {
 
     //-------------------------------------------------------------------------
     //		Attributes
