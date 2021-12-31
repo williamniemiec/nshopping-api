@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import wniemiec.api.nshop.domain.*;
 import wniemiec.api.nshop.domain.enums.PaymentStatus;
 import wniemiec.api.nshop.dto.CategoryDTO;
+import wniemiec.api.nshop.dto.ClientOrderDTO;
 import wniemiec.api.nshop.security.UserSpringSecurity;
 import wniemiec.api.nshop.services.exceptions.AuthorizationException;
 import wniemiec.api.nshop.services.exceptions.ObjectNotFoundException;
@@ -48,12 +49,18 @@ public class ClientOrderService {
         ));
     }
 
-    public ClientOrder insert(ClientOrder order) {
+    public ClientOrder insert(ClientOrderDTO orderDto) {
+        ClientOrder order = orderDto.toClientOrder(
+            clientService.findById(orderDto.getClient().getId())
+        );
+
+/*        
         order.setId(null);
-        order.setClient(clientService.findById(order.getClient().getId()));
+        order.setClient();
         order.setDate(new Date());
         order.getPayment().setStatus(PaymentStatus.PENDING);
         order.getPayment().setClientOrder(order);
+*/
 
         if (order.getPayment() instanceof BoletoPayment) {
             BoletoPayment payment = (BoletoPayment) order.getPayment();

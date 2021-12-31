@@ -5,8 +5,22 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class URLUtils {
 
+/**
+ * Responsible for providing URL utilities.
+ */
+public class UrlUtils {
+
+    //-------------------------------------------------------------------------
+    //		Constructor
+    //-------------------------------------------------------------------------
+    private UrlUtils() {
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public static List<Integer> decodeIntList(String s) {
         List<Integer> list = new ArrayList<>();
 

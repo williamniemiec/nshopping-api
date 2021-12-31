@@ -40,7 +40,7 @@ public class CategoryService {
         return insert(new Category(category.getId(), category.getName()));
     }
 
-    public Category update(Category category) {
+    public void update(Category category) {
         if (category.getId() == null) {
             throw new ObjectNotFoundException(
                     "Object not found! Id: " + category.getId() + ", Type: " + Category.class.getName()
@@ -50,11 +50,11 @@ public class CategoryService {
         Category currentCategory = repository.findById(category.getId()).get();
         category.setProducts(currentCategory.getProducts());
 
-        return repository.save(category);
+        repository.save(category);
     }
 
-    public Category update(CategoryDTO category) {
-        return update(new Category(category.getId(), category.getName()));
+    public void update(CategoryDTO category) {
+        update(new Category(category.getId(), category.getName()));
     }
 
     public void delete(Integer id) {
