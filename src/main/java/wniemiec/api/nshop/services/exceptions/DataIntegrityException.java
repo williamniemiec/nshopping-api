@@ -1,9 +1,20 @@
 package wniemiec.api.nshop.services.exceptions;
 
+
+/**
+ * Responsible for handling data exceptions.
+ */
 public class DataIntegrityException extends RuntimeException {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     public DataIntegrityException(String message) {
         super(message);
     }
