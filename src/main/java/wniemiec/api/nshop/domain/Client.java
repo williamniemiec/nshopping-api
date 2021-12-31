@@ -1,20 +1,24 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import wniemiec.api.nshop.domain.enums.ClientType;
 import wniemiec.api.nshop.domain.enums.Profile;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * Responsible for representing a client.
+ */
 @Entity
 public class Client implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -45,6 +49,10 @@ public class Client implements Serializable {
     @OneToMany(mappedBy="client")
     private List<ClientOrder> clientOrders;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public Client() {
         addresses = new ArrayList<>();
         phones = new HashSet<>();
@@ -52,7 +60,8 @@ public class Client implements Serializable {
         addProfile(Profile.CLIENT);
     }
 
-    public Client(Integer id, String name, String email, String documentId, ClientType type, String password) {
+    public Client(Integer id, String name, String email, String documentId, 
+                  ClientType type, String password) {
         this();
         this.id = id;
         this.name = name;
@@ -60,10 +69,19 @@ public class Client implements Serializable {
         this.documentId = documentId;
         this.password = password;
 
-        if (type != null)
+        if (type != null) {
             this.type = type.getId();
+        }
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
+    public void addProfile(Profile profile) {
+        this.profiles.add(profile.getId());
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -81,6 +99,10 @@ public class Client implements Serializable {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }
@@ -146,9 +168,5 @@ public class Client implements Serializable {
             .stream()
             .map(profile -> Profile.toEnum(profile))
             .collect(Collectors.toSet());
-    }
-
-    public void addProfile(Profile profile) {
-        this.profiles.add(profile.getId());
     }
 }

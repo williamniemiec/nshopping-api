@@ -1,15 +1,20 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing a city.
+ */
 @Entity
 public class City implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -22,6 +27,10 @@ public class City implements Serializable {
     )
     private State state;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public City() {
     }
 
@@ -31,6 +40,10 @@ public class City implements Serializable {
         this.state = state;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -49,6 +62,10 @@ public class City implements Serializable {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }

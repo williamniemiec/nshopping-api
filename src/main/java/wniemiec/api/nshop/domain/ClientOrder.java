@@ -1,18 +1,23 @@
 package wniemiec.api.nshop.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
+/**
+ * Responsible for representing a client order.
+ */
 @Entity
 public class ClientOrder implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -33,8 +38,12 @@ public class ClientOrder implements Serializable {
     private Address deliveryAddress;
 
     @OneToMany(mappedBy="id.clientOrder")
-    private Set<ClientOrderItem> products = new HashSet<>();
+    private transient Set<ClientOrderItem> products = new HashSet<>();
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public ClientOrder() {
     }
 
@@ -45,6 +54,10 @@ public class ClientOrder implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ClientOrder{");
@@ -77,6 +90,10 @@ public class ClientOrder implements Serializable {
         return Objects.equals(id, clientOrder.id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Set<ClientOrderItem> getProducts() {
         return products;
     }

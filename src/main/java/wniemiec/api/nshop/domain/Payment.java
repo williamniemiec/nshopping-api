@@ -1,20 +1,29 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import wniemiec.api.nshop.domain.enums.PaymentStatus;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing a payment.
+ */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="@type")
+@JsonTypeInfo(
+    use=JsonTypeInfo.Id.NAME, 
+    include=JsonTypeInfo.As.PROPERTY, 
+    property="@type"
+)
 public abstract class Payment implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Integer id;
@@ -26,15 +35,23 @@ public abstract class Payment implements Serializable {
     @MapsId
     private ClientOrder clientOrder;
 
-    public Payment() {
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
+    protected Payment() {
     }
 
-    public Payment(Integer id, PaymentStatus status, ClientOrder clientOrder) {
+    protected Payment(Integer id, PaymentStatus status, ClientOrder clientOrder) {
         this.id = id;
         this.status = (status == null) ? null : status.getId();
         this.clientOrder = (clientOrder == null) ? null : clientOrder;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -53,6 +70,10 @@ public abstract class Payment implements Serializable {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }

@@ -4,15 +4,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing an item from a client order.
+ */
 @Entity
 public class ClientOrderItem {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     @JsonIgnore
     @EmbeddedId
     private ClientOrderItemPK id = new ClientOrderItemPK();
@@ -21,6 +26,10 @@ public class ClientOrderItem {
     private Integer amount;
     private Double price;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public ClientOrderItem() {
     }
 
@@ -32,6 +41,10 @@ public class ClientOrderItem {
         this.price = price;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -64,6 +77,10 @@ public class ClientOrderItem {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public double getTotal() {
         return ((price - discount) * amount);
     }

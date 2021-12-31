@@ -1,18 +1,23 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing a state.
+ */
 @Entity
 public class State implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,6 +28,10 @@ public class State implements Serializable {
     @OneToMany(mappedBy="state")
     private List<City> cities;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public State() {
         cities = new ArrayList<>();
     }
@@ -33,6 +42,10 @@ public class State implements Serializable {
         this.name = name;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -51,6 +64,10 @@ public class State implements Serializable {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }

@@ -1,16 +1,21 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing a product category,
+ */
 @Entity
 public class Category implements Serializable {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 100L;
 
     @Id
@@ -21,6 +26,10 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy="categories")
     private List<Product> products;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public Category() {
         products = new ArrayList<>();
     }
@@ -31,6 +40,10 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -49,6 +62,10 @@ public class Category implements Serializable {
         return Objects.hash(id);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }

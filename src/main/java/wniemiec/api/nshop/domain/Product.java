@@ -1,16 +1,20 @@
 package wniemiec.api.nshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+
+/**
+ * Responsible for representing a product.
+ */
 @Entity
 public class Product implements Serializable {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,8 +34,12 @@ public class Product implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy="id.product")
-    private Set<ClientOrderItem> orderItems = new HashSet<>();
+    private transient Set<ClientOrderItem> orderItems = new HashSet<>();
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public Product() {
         categories = new ArrayList<>();
     }
@@ -43,26 +51,36 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-
-        if (o == null || getClass() != o.getClass())
+        }
+        
+        if (o == null || getClass() != o.getClass()) {
             return false;
-
+        }
+        
         Product product = (Product) o;
-
+        
         return id.equals(product.id);
     }
-
+    
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
+    public Integer getId() {
+        return id;
     }
 
     @JsonIgnore

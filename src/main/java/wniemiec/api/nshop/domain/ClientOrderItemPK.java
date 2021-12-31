@@ -6,10 +6,17 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+/**
+ * Responsible for representing the foreign key of an item from a client order,
+ */
 @Embeddable
 public class ClientOrderItemPK implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne
     @JoinColumn(name="id_order")
@@ -19,6 +26,10 @@ public class ClientOrderItemPK implements Serializable {
     @JoinColumn(name="id_product")
     private Product product;
 
+
+    //-------------------------------------------------------------------------
+    //		Methods
+    //-------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -37,6 +48,10 @@ public class ClientOrderItemPK implements Serializable {
         return Objects.hash(clientOrder, product);
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public ClientOrder getClientOrder() {
         return clientOrder;
     }
