@@ -27,6 +27,7 @@ public abstract class Payment implements Serializable {
 
     @Id
     private Integer id;
+    
     private Integer status;
 
     @JsonIgnore

@@ -2,15 +2,21 @@ package wniemiec.api.nshop.dto;
 
 import org.hibernate.validator.constraints.Length;
 import wniemiec.api.nshop.services.validation.ClientInsert;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing a client received from a new client request.
+ */
 @ClientInsert
 public class ClientNewDTO implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
+    private static final long serialVersionUID = 1L;
 
     @NotEmpty(message="Required field")
     @Length(min=5, max=120, message="Minimum length: 5; Maximum length: 80")
@@ -48,6 +54,10 @@ public class ClientNewDTO implements Serializable {
     private String phone2;
     private String phone3;
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public String getName() {
         return name;
     }

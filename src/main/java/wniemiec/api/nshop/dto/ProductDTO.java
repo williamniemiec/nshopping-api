@@ -1,17 +1,26 @@
 package wniemiec.api.nshop.dto;
 
 import wniemiec.api.nshop.domain.Product;
-
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing a product received from a request.
+ */
 public class ProductDTO implements Serializable {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
-
     private Integer id;
     private String name;
     private double price;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public ProductDTO() {
     }
 
@@ -21,6 +30,10 @@ public class ProductDTO implements Serializable {
         price = getPrice();
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }

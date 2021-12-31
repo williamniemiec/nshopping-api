@@ -33,7 +33,8 @@ public class ClientOrderItem {
     public ClientOrderItem() {
     }
 
-    public ClientOrderItem(ClientOrder order, Product product, Double discount, Integer amount, Double price) {
+    public ClientOrderItem(ClientOrder order, Product product, Double discount, 
+                           Integer amount, Double price) {
         id.setClientOrder(order);
         id.setProduct(product);
         this.discount = discount;

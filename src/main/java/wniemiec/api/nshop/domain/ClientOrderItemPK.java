@@ -40,7 +40,8 @@ public class ClientOrderItemPK implements Serializable {
 
         ClientOrderItemPK that = (ClientOrderItemPK) o;
 
-        return Objects.equals(clientOrder, that.clientOrder) && Objects.equals(product, that.product);
+        return  Objects.equals(clientOrder, that.clientOrder) 
+                && Objects.equals(product, that.product);
     }
 
     @Override

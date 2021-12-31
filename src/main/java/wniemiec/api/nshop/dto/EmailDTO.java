@@ -4,17 +4,25 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing an email received from a request.
+ */
 public class EmailDTO implements Serializable {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
 
     @NotEmpty
     @Email(message="Invalid email")
     private String email;
 
-    public EmailDTO() {
-    }
 
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public String getEmail() {
         return email;
     }

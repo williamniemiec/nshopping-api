@@ -1,16 +1,25 @@
 package wniemiec.api.nshop.dto;
 
 import wniemiec.api.nshop.domain.City;
-
 import java.io.Serializable;
 
+
+/**
+ * Responsible for representing a city received from a request.
+ */
 public class CityDTO implements Serializable {
 
+    //-------------------------------------------------------------------------
+    //		Attributes
+    //-------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
-
     private Integer id;
     private String name;
 
+
+    //-------------------------------------------------------------------------
+    //		Constructors
+    //-------------------------------------------------------------------------
     public CityDTO() {
     }
 
@@ -19,6 +28,10 @@ public class CityDTO implements Serializable {
         name = city.getName();
     }
 
+
+    //-------------------------------------------------------------------------
+    //		Getters & Setters
+    //-------------------------------------------------------------------------
     public Integer getId() {
         return id;
     }
