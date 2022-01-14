@@ -60,7 +60,7 @@ Details about each version are documented in the [releases section](https://gith
 |resources|`Directory`|Static files|
 |java|`Directory`|Source files|
 
-### /src/main/java/wniemiec/api/nshop
+### /src/main/java/wniemiec/api/nshopping
 |        Name        |Type|Description|
 |----------------|-------------------------------|-----------------------------|
 |config|`Directory`|Configuration classes|
