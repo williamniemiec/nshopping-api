@@ -11,13 +11,13 @@
 	<a href="https://github.com/williamniemiec/nshopping-api/blob/master/LICENSE"><img src="https://img.shields.io/github/license/williamniemiec/nshopping-api" alt="License"></a>
 </p>
 <p align="center">
-	<a href='https://wniemiec-api-nshopping.up.railway.app/)'><img alt='Deploy' src='https://railway.app/button.svg' width=200/></a>
+	<a href='https://wniemiec-api-nshopping.up.railway.app/swagger-ui.html'><img alt='Deploy' src='https://railway.app/button.svg' width=200/></a>
 </p>
 
 <hr />
 
 ## ❇ Introduction
-nShopping API is an API built with Spring Framework for a simple shopping system. This application was made for the sole purpose of learning the Spring framework better. You can interact with the project through the Heroku platform ([click here to access](https://wniemiec-api-nshopping.up.railway.app/)).
+nShopping API is an API built with Spring Framework for a simple shopping system. This application was made for the sole purpose of learning the Spring framework better. You can interact with the project through the Heroku platform ([click here to access](https://wniemiec-api-nshopping.up.railway.app/swagger-ui.html)).
 
 ### Login information
 | Email| Password |
@@ -28,7 +28,7 @@ nShopping API is an API built with Spring Framework for a simple shopping system
 The hosting service Heroku may have a certain delay (~ 1 min) for uploading the application so the loading of the website may have a certain delay. 
 
 ## 📖 Documentation
-See [here](https://wniemiec-api-nshopping.up.railway.app/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config) the OpenAPI documentation.
+See [here](https://wniemiec-api-nshopping.up.railway.app/swagger-ui.html) the OpenAPI documentation.
 
 ## ✔ Requiremens
 - [JDK 11+](https://www.oracle.com/java/technologies/downloads/);
