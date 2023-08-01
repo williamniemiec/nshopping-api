@@ -12,4 +12,4 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/nshopping-1.0.0.jar /usr/local/lib/nshopping.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-Dserver.port=$PORT","-Dspring.profiles.active=prod", "-jar","/usr/local/lib/nshopping.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-jar","/usr/local/lib/nshopping.jar"]
