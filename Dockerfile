@@ -1,0 +1,15 @@
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
+
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=build /home/app/target/nshopping-1.0.0.jar /usr/local/lib/nshopping.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-Dserver.port=$PORT","-Dspring.profiles.active=prod", "$JAVA_OPTS", "-jar","/usr/local/lib/nshopping.jar"]
