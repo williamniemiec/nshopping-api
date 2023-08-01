@@ -11,7 +11,7 @@
 	<a href="https://github.com/williamniemiec/nshopping-api/blob/master/LICENSE"><img src="https://img.shields.io/github/license/williamniemiec/nshopping-api" alt="License"></a>
 </p>
 <p align="center">
-	<a href='https://wniemiec-api-nshopping.up.railway.app/swagger-ui.html'><img alt='Deploy' src='https://railway.app/button.svg' width=200/></a>
+	<a href='https://wniemiec-api-nshopping.onrender.com/swagger-ui.html'><img alt='Deploy' src='https://render.com/images/deploy-to-render-button.svg' width=200/></a>
 </p>
 
 <hr />
