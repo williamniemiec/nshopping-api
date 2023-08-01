@@ -17,7 +17,7 @@
 <hr />
 
 ## ❇ Introduction
-nShopping API is an API built with Spring Framework for a simple shopping system. This application was made for the sole purpose of learning the Spring framework better. You can interact with the project through the Heroku platform ([click here to access](https://wniemiec-api-nshopping.up.railway.app/swagger-ui.html)).
+nShopping API is an API built with Spring Framework for a simple shopping system. This application was made for the sole purpose of learning the Spring framework better. You can interact with the project through the Heroku platform ([click here to access](https://wniemiec-api-nshopping.onrender.com/swagger-ui.html)).
 
 ### Login information
 | Email| Password |
